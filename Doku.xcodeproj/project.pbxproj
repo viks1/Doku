@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		412C59A42CFF7268008F2554 /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412C59A32CFF7268008F2554 /* FrameView.swift */; };
+		412C59A62CFF8D04008F2554 /* FrameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412C59A52CFF8D04008F2554 /* FrameHandler.swift */; };
+		412C59AC2CFF949A008F2554 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412C59AB2CFF949A008F2554 /* CameraView.swift */; };
 		41850DAD2C6EEFA100E35051 /* DokuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41850DAC2C6EEFA100E35051 /* DokuApp.swift */; };
 		41850DAF2C6EEFA100E35051 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41850DAE2C6EEFA100E35051 /* ContentView.swift */; };
 		41850DB12C6EEFA200E35051 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41850DB02C6EEFA200E35051 /* Assets.xcassets */; };
@@ -16,6 +18,8 @@
 
 /* Begin PBXFileReference section */
 		412C59A32CFF7268008F2554 /* FrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
+		412C59A52CFF8D04008F2554 /* FrameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameHandler.swift; sourceTree = "<group>"; };
+		412C59AB2CFF949A008F2554 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		41850DA92C6EEFA100E35051 /* Doku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41850DAC2C6EEFA100E35051 /* DokuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DokuApp.swift; sourceTree = "<group>"; };
 		41850DAE2C6EEFA100E35051 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,7 +59,9 @@
 			children = (
 				41850DAC2C6EEFA100E35051 /* DokuApp.swift */,
 				41850DAE2C6EEFA100E35051 /* ContentView.swift */,
+				412C59AB2CFF949A008F2554 /* CameraView.swift */,
 				412C59A32CFF7268008F2554 /* FrameView.swift */,
+				412C59A52CFF8D04008F2554 /* FrameHandler.swift */,
 				41850DB02C6EEFA200E35051 /* Assets.xcassets */,
 				41850DB22C6EEFA200E35051 /* Preview Content */,
 			);
@@ -142,6 +148,8 @@
 			files = (
 				412C59A42CFF7268008F2554 /* FrameView.swift in Sources */,
 				41850DAF2C6EEFA100E35051 /* ContentView.swift in Sources */,
+				412C59A62CFF8D04008F2554 /* FrameHandler.swift in Sources */,
+				412C59AC2CFF949A008F2554 /* CameraView.swift in Sources */,
 				41850DAD2C6EEFA100E35051 /* DokuApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,6 +287,7 @@
 				DEVELOPMENT_TEAM = 996P284SA6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Required to take an image of the ID cards.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -308,6 +317,7 @@
 				DEVELOPMENT_TEAM = 996P284SA6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Required to take an image of the ID cards.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

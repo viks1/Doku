@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
         NavigationView{
             VStack {
-                Button("next page") {}
+                NavigationLink(destination: CameraView()){
+                Label("Add new ID", systemImage: "camera")
+                }.navigationTitle("Doku")
             }
-            .navigationTitle("Doku")
         }
     }
-}
-
-#Preview {
-    ContentView()
+    struct ContentViewPreview: PreviewProvider {
+        static var previews: some View {
+            ContentView() }
+    }
 }
