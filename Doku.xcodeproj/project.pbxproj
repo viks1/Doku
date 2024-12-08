@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		412C59A42CFF7268008F2554 /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412C59A32CFF7268008F2554 /* FrameView.swift */; };
-		412C59A62CFF8D04008F2554 /* FrameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412C59A52CFF8D04008F2554 /* FrameHandler.swift */; };
-		412C59AC2CFF949A008F2554 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412C59AB2CFF949A008F2554 /* CameraView.swift */; };
+		41463C942D04D97C0065BBE0 /* IDCardPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41463C932D04D9730065BBE0 /* IDCardPhoto.swift */; };
+		41463C962D04DA0C0065BBE0 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41463C952D04DA0C0065BBE0 /* CameraView.swift */; };
 		41850DAD2C6EEFA100E35051 /* DokuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41850DAC2C6EEFA100E35051 /* DokuApp.swift */; };
 		41850DAF2C6EEFA100E35051 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41850DAE2C6EEFA100E35051 /* ContentView.swift */; };
 		41850DB12C6EEFA200E35051 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41850DB02C6EEFA200E35051 /* Assets.xcassets */; };
@@ -17,9 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		412C59A32CFF7268008F2554 /* FrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
-		412C59A52CFF8D04008F2554 /* FrameHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameHandler.swift; sourceTree = "<group>"; };
-		412C59AB2CFF949A008F2554 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		41463C932D04D9730065BBE0 /* IDCardPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDCardPhoto.swift; sourceTree = "<group>"; };
+		41463C952D04DA0C0065BBE0 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		41850DA92C6EEFA100E35051 /* Doku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41850DAC2C6EEFA100E35051 /* DokuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DokuApp.swift; sourceTree = "<group>"; };
 		41850DAE2C6EEFA100E35051 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,11 +55,10 @@
 		41850DAB2C6EEFA100E35051 /* Doku */ = {
 			isa = PBXGroup;
 			children = (
+				41463C932D04D9730065BBE0 /* IDCardPhoto.swift */,
+				41463C952D04DA0C0065BBE0 /* CameraView.swift */,
 				41850DAC2C6EEFA100E35051 /* DokuApp.swift */,
 				41850DAE2C6EEFA100E35051 /* ContentView.swift */,
-				412C59AB2CFF949A008F2554 /* CameraView.swift */,
-				412C59A32CFF7268008F2554 /* FrameView.swift */,
-				412C59A52CFF8D04008F2554 /* FrameHandler.swift */,
 				41850DB02C6EEFA200E35051 /* Assets.xcassets */,
 				41850DB22C6EEFA200E35051 /* Preview Content */,
 			);
@@ -146,11 +143,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				412C59A42CFF7268008F2554 /* FrameView.swift in Sources */,
+				41463C942D04D97C0065BBE0 /* IDCardPhoto.swift in Sources */,
 				41850DAF2C6EEFA100E35051 /* ContentView.swift in Sources */,
-				412C59A62CFF8D04008F2554 /* FrameHandler.swift in Sources */,
-				412C59AC2CFF949A008F2554 /* CameraView.swift in Sources */,
 				41850DAD2C6EEFA100E35051 /* DokuApp.swift in Sources */,
+				41463C962D04DA0C0065BBE0 /* CameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
