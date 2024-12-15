@@ -16,7 +16,7 @@ func processOCR(image: UIImage, completion: @escaping (String) -> Void) {
         completion("")
         return
     }
-    
+    		
     let request = VNRecognizeTextRequest { (request, error) in
         guard error == nil else {
             print("Text recognition problem: \(String(describing: error))")
@@ -69,6 +69,9 @@ func parseIDCardText(_ text: String) -> IDCardPhoto {
     var address : String?
     var authority : String?
 
+    let dateFormatter = DateFormatter() // za da pretvorime vo Date
+    dateFormatter.dateFormat = "dd/MM/yyyy"
+    
     for (index, line) in lines.enumerated() {
         if line.contains("SURNAME") {
             if index + 1 < lines.count { //nullcheck
@@ -92,10 +95,29 @@ func parseIDCardText(_ text: String) -> IDCardPhoto {
         } else if line.contains("SEX") {
             if index+1 < lines.count {
                 sex = lines[index+1]
-                .trimmingCharacters(in: .whitespaces)
-                .split(separator: "/")
-                .first
+                    .trimmingCharacters(in: .whitespaces)
+                    .split(separator: "/")
+                    .first
                 .map(String.init)} //mora da se pretvori vo string, sam ne mozhe da odredi shto kje ispadne
+            /*if (sex=="M"){
+                sex="Male"
+            }
+            else {
+                sex="Female"
+            }
+             */
+        } else if line.contains("DATE OF ISSUE") {
+            if index+1 < lines.count {
+                dateOfIssue = dateFormatter.date(from: lines[index+1])
+            }
+        } else if line.contains("DATE OF EXPIRY") {
+            if index+1 < lines.count {
+                dateOfExpiry = dateFormatter.date(from: lines[index+1])
+            }
+        } else if line.contains("DATE OF BIRTH") {
+            if index+1 < lines.count {
+                dateOfBirth = dateFormatter.date(from: lines[index+1])
+            }
         }
     }
 
@@ -105,6 +127,9 @@ func parseIDCardText(_ text: String) -> IDCardPhoto {
         surname: surname,
         nationality: nationality,
         sex: sex,
+        dateofbirth: dateOfBirth,
+        dateOfIssue: dateOfIssue,
+        dateOfExpiry: dateOfExpiry,
         IDNumber: idNumber
     )
 }

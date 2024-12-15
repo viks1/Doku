@@ -110,7 +110,7 @@ struct EditSlikaView: View {
                 }
             }}
     }
-    func deleteSlika() {
+    func deleteSlika() {					
         modelContext.delete(slika)
     }
     func saveDetails() {
