@@ -18,6 +18,8 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
         picker.delegate = context.coordinator	
         picker.sourceType = .camera
         picker.allowsEditing = true
+        picker.cameraFlashMode = .on
+        
         return picker
         //inicijalizacija na pickerot so shto go terame da ja koristi kamerata, i da mozhe da se editira slikata
     }
