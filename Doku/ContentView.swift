@@ -16,7 +16,10 @@ struct ContentView: View {
     @State private var counter: Int = 0 //state mora da ima vrednost pri inicijalizacija, a queryto gore e dinamicno
     @State private var editSlika = false
     //@State private var slikaTransfer: IDCardPhoto? //po bezbeden nacin
-
+    
+    //za ocr da znae na koja linija da se fokusira
+    @State public var english: Bool = false
+    
     var body: some View {
         NavigationView {
             ScrollView(.horizontal, showsIndicators: false) { //da nema scrollbar
@@ -39,15 +42,15 @@ struct ContentView: View {
                 }
             }
         }
-        // Camera button to take a picture
         Button(action: { imaKamera = true }) {
             Label("Slikaj", systemImage: "camera")
         }
         .sheet(isPresented: $imaKamera) {
-            CameraView(slika: $slika, onsave: savePhotoToSwiftData)
+            CameraView(slika: $slika, onsave: { image in
+                savePhotoToSwiftData(slika: image)
+            })
         }
         
-        // Display the count of ID cards
         Text("Broj na ID's : \(counter)")
     }
     
@@ -57,21 +60,33 @@ struct ContentView: View {
             return
         }
         
-        let newId = IDCardPhoto(imageData: imageData) //pravime model
-        modelContext.insert(newId) //go stavame vo contextot
         
-        do {
-            try modelContext.save()
-            print("uspesno zacuvuvanje vo databaza")
-        } catch {
-            print("neuspesno zacuvuvanje")
-        }
-    }
-
-    
-    struct ContentViewPreview: PreviewProvider {
-        static var previews: some View {
-            ContentView()
+        //let newId = IDCardPhoto(imageData: imageData) //pravime model
+        
+        processOCR(image: slika) { extractedText in
+            DispatchQueue.main.async {
+                let parsedData = parseIDCardText(extractedText)
+                parsedData.imageData = imageData // Assign captured image data
+                
+                // Insert parsed data into the database
+                modelContext.insert(parsedData)
+                
+                //modelContext.insert(newId) //go stavame vo contextot
+                
+                do {
+                    try modelContext.save()
+                    print("uspesno zacuvuvanje vo databaza")
+                } catch {
+                    print("neuspesno zacuvuvanje")
+                }
+            }
+            
+            
+            struct ContentViewPreview: PreviewProvider {
+                static var previews: some View {
+                    ContentView()
+                }
+            }
         }
     }
 }

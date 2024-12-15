@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		412BCE0F2D07687D00949407 /* OCRProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412BCE0E2D07687D00949407 /* OCRProcessing.swift */; };
 		41463C942D04D97C0065BBE0 /* IDCardPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41463C932D04D9730065BBE0 /* IDCardPhoto.swift */; };
 		41463C962D04DA0C0065BBE0 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41463C952D04DA0C0065BBE0 /* CameraView.swift */; };
 		41850DAD2C6EEFA100E35051 /* DokuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41850DAC2C6EEFA100E35051 /* DokuApp.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		412BCE0E2D07687D00949407 /* OCRProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRProcessing.swift; sourceTree = "<group>"; };
 		41463C932D04D9730065BBE0 /* IDCardPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDCardPhoto.swift; sourceTree = "<group>"; };
 		41463C952D04DA0C0065BBE0 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		41850DA92C6EEFA100E35051 /* Doku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doku.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +63,7 @@
 				41463C952D04DA0C0065BBE0 /* CameraView.swift */,
 				41850DAC2C6EEFA100E35051 /* DokuApp.swift */,
 				41850DAE2C6EEFA100E35051 /* ContentView.swift */,
+				412BCE0E2D07687D00949407 /* OCRProcessing.swift */,
 				41B89FA92D072E13007B2289 /* EditSlikaView.swift */,
 				41850DB02C6EEFA200E35051 /* Assets.xcassets */,
 				41850DB22C6EEFA200E35051 /* Preview Content */,
@@ -151,6 +154,7 @@
 				41B89FAA2D072E13007B2289 /* EditSlikaView.swift in Sources */,
 				41850DAD2C6EEFA100E35051 /* DokuApp.swift in Sources */,
 				41463C962D04DA0C0065BBE0 /* CameraView.swift in Sources */,
+				412BCE0F2D07687D00949407 /* OCRProcessing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,7 +15,7 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
+        picker.delegate = context.coordinator	
         picker.sourceType = .camera
         picker.allowsEditing = true
         return picker
