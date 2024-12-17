@@ -11,6 +11,7 @@ import SwiftUI
 @Model
 class IDCardPhoto : Identifiable {
     @Attribute var imageData: Data?
+    @Attribute var imageData2: Data?
     @Attribute var timestamp: Date
     @Attribute var name: String?
     @Attribute var surname: String?
@@ -25,8 +26,9 @@ class IDCardPhoto : Identifiable {
     @Attribute var authority: String?
     @Attribute var IDNumber: Int? //M + broj
     
-    init(imageData: Data?, timestamp: Date = Date(), name: String? = nil, surname: String? = nil, nationality: String? = nil, sex: String? = nil, dateofbirth: Date? = nil, dateOfIssue: Date? = nil, dateOfExpiry: Date? = nil, placeOfBirth: String? = nil, permamentResidence: String? = nil, address: String? = nil, authority: String? = nil, IDNumber: Int? = nil) {
+    init(imageData: Data?, imageData2: Data? = nil, timestamp: Date = Date(), name: String? = nil, surname: String? = nil, nationality: String? = nil, sex: String? = nil, dateofbirth: Date? = nil, dateOfIssue: Date? = nil, dateOfExpiry: Date? = nil, placeOfBirth: String? = nil, permamentResidence: String? = nil, address: String? = nil, authority: String? = nil, IDNumber: Int? = nil) {
         self.imageData = imageData
+        self.imageData2 = imageData2
         self.timestamp = timestamp
         self.name = name
         self.surname = surname
