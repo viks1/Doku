@@ -16,9 +16,8 @@ struct ContentView: View {
     @Query(sort: \IDCardPhoto.timestamp, order: .reverse) var idCardPhotos: [IDCardPhoto] // da gi zeme site sliki od databazata
     @State private var counter: Int = 0 //state mora da ima vrednost pri inicijalizacija, a queryto gore e dinamicno
     @State private var editSlika = false
-    //@State private var slikaTransfer: IDCardPhoto? //po bezbeden nacin
     
-    //za ocr da znae na koja linija da se fokusira
+    //za ocr da znae na koja linija da se fokusira TODO
     @State public var english: Bool = false
     
     @Environment(\.dismiss) private var dismiss //za cancel button
@@ -28,8 +27,7 @@ struct ContentView: View {
             ScrollView(.horizontal, showsIndicators: false) { //da nema scrollbar
                 HStack {
                     ForEach(idCardPhotos) { photo in
-                        if let data1 = photo.imageData, let image1 = UIImage(data: data1), //go pretvorame vo UIslika za da mozhe da se prikazhe
-                            let data2 = photo.imageData2, let image2 = UIImage(data: data2) {
+                        if let data1 = photo.imageData, let image1 = UIImage(data: data1) { //go pretvorame vo UIslika za da mozhe da se prikazhe
                             NavigationLink(destination: EditSlikaView(slika: photo)) { //pri klik se otvara edits
                                 Image(uiImage: image1)
                                     .resizable()
@@ -53,7 +51,7 @@ struct ContentView: View {
         }
         .sheet(isPresented: $imaKamera) {
             CameraView(slika: $slika, slika2: $slika2){
-                slika, slika2 in savePhotoToSwiftData(slika: slika, slika2: slika2)
+                slika, slika2 in savePhotoToSwiftData(slika: slika, slika2: slika2) //gi zema od cameraView dvata objekta
             }
             //Button("Cancel") {
               //  dismiss()
@@ -63,7 +61,7 @@ struct ContentView: View {
         
             }
     
-    func savePhotoToSwiftData(slika: UIImage, slika2: UIImage) {
+    func savePhotoToSwiftData(slika: UIImage, slika2: UIImage) { // se prakjaat tuka kade shto se pretvoraat vo jpeg
         guard let imageData = slika.jpegData(compressionQuality: 0.8),
               let imageData2 = slika2.jpegData(compressionQuality: 0.8) else {
             print("Neupesno konvertiranje")
@@ -71,15 +69,15 @@ struct ContentView: View {
         }
         
         
-        //let newId = IDCardPhoto(imageData: imageData) //pravime model
+        print("First image data size: \(imageData.count)")
+        print("Second image data size: \(imageData2.count)")
         
         processOCR(image: slika) { extractedText in
             DispatchQueue.main.async {
                 let parsedData = parseIDCardText(extractedText)
-                let parsedData2 = parseIDCardText(extractedText)
                 
                 parsedData.imageData = imageData
-                parsedData2.imageData2 = imageData2
+                parsedData.imageData2 = imageData2
                 
                 modelContext.insert(parsedData)
                 

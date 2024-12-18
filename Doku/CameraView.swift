@@ -47,7 +47,7 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
             self.parent = parent
         }
         
-        //pravi overlay i go stava kopcheto vnatre
+        //pravi overlay za custom kamerata i go stava kopcheto vnatre
         func customDisplay() -> UIView {
             let overlay = UIView(frame: UIScreen.main.bounds)
             overlay.backgroundColor = .clear
@@ -84,15 +84,19 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
                 if !prednaSlikana {
                     parent.slika = image
                     prednaSlikana = true
+                    print("predna strana slikana")
                 } else {
-                    parent.slika2 = image //gi vrakja nazad do roditelot
-                    parent.onsave(parent.slika!, image)
+                    parent.slika2 = image
+                    print("zadna strana slikana")
+                    if let slika1 = parent.slika {
+                        parent.onsave(slika1, image)
+                    }
                     parent.presentationMode.wrappedValue.dismiss()
                 }
-                
+            } else {
+                parent.presentationMode.wrappedValue.dismiss()
+                //avtomatski go gasi pickerot
             }
-            parent.presentationMode.wrappedValue.dismiss()
-            //avtomatski go gasi pickerot
         }
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             parent.presentationMode.wrappedValue.dismiss() //manuelno gasenje na pickerot, nishto ne vrakja nazad do roditelot
