@@ -68,18 +68,18 @@ struct EditSlikaView: View {
                     TextField("sex", text: $sex).onAppear {
                         sex = slika.sex ?? "Default"
                     }.disabled(editing)
-                    DatePicker("dateOfbirth", selection: $dateOfBirth).onAppear {
+                    DatePicker("", selection: $dateOfBirth).onAppear {
                         dateOfBirth = slika.dateOfBirth ?? Date.now
                     }.disabled(editing)
                     
                     TextField("IDNumber", value: $idNumber, formatter: formatter).onAppear {
                     idNumber = slika.IDNumber ?? 0
                     }.disabled(editing)
-                    
-                    DatePicker("dateOfIssue", selection: $dateOfIssue).onAppear {
+
+                    DatePicker("", selection: $dateOfIssue).onAppear {
                         dateOfIssue = slika.dateOfIssue ?? Date.now
                     }.disabled(editing)
-                    DatePicker("dateOfExpiry", selection: $dateOfExpiry).onAppear {
+                    DatePicker("", selection: $dateOfExpiry).onAppear {
                         dateOfExpiry = slika.dateOfExpiry ?? Date.now
                     }.disabled(editing)
                     TextField("placeOfBirth", text: $placeOfBirth).onAppear {

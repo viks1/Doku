@@ -52,6 +52,20 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
             let overlay = UIView(frame: UIScreen.main.bounds)
             overlay.backgroundColor = .clear
             
+            //da go ima oblikot na licnata krata
+            let maska = UIBezierPath(rect: UIScreen.main.bounds) //nadvoresniot del (crn)
+            let prozorche = UIBezierPath(roundedRect: CGRect(x: UIScreen.main.bounds.width * 0.1,
+            y: UIScreen.main.bounds.height * 0.3, width: UIScreen.main.bounds.width * 0.7, height: UIScreen.main.bounds.height * 0.2),cornerRadius: 10)
+            maska.append(prozorche) //ova go pravi prodzirniot del vo sredina kade shto treba da bide licnata karta
+            maska.usesEvenOddFillRule = true
+                        
+            let maskLayer = CAShapeLayer()
+            maskLayer.path = maska.cgPath
+            maskLayer.fillRule = .evenOdd
+            maskLayer.fillColor = UIColor.black.cgColor
+            maskLayer.opacity = 0.8
+            overlay.layer.addSublayer(maskLayer)
+            
             //hardcoded za iphone 16 pro :(
             let slikaj = UIButton(frame: CGRect(x: UIScreen.main.bounds.width/2 - 40, y: UIScreen.main.bounds.height * 0.70, width: 80, height: 80))
             slikaj.backgroundColor = UIColor.systemBlue

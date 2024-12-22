@@ -23,6 +23,7 @@ struct ContentView: View {
     @Environment(\.dismiss) private var dismiss //za cancel button
     
     var body: some View {
+        Text("Doku")
         NavigationView {
             ScrollView(.horizontal, showsIndicators: false) { //da nema scrollbar
                 HStack {
@@ -45,7 +46,7 @@ struct ContentView: View {
             }
         }
         //Text("Broj na ID's : \(counter)")
-
+        
         Button(action: { imaKamera = true }) {
             Label("Slikaj", systemImage: "camera")
         }
@@ -54,12 +55,12 @@ struct ContentView: View {
                 slika, slika2 in savePhotoToSwiftData(slika: slika, slika2: slika2) //gi zema od cameraView dvata objekta
             }
             //Button("Cancel") {
-              //  dismiss()
+            //  dismiss()
             // }
         }
         
         
-            }
+    }
     
     func savePhotoToSwiftData(slika: UIImage, slika2: UIImage) { // se prakjaat tuka kade shto se pretvoraat vo jpeg
         guard let imageData = slika.jpegData(compressionQuality: 0.8),
@@ -68,33 +69,33 @@ struct ContentView: View {
             return
         }
         
-        
-        print("First image data size: \(imageData.count)")
-        print("Second image data size: \(imageData2.count)")
-        
-        processOCR(image: slika) { extractedText in
-            DispatchQueue.main.async {
-                let parsedData = parseIDCardText(extractedText)
-                
-                parsedData.imageData = imageData
-                parsedData.imageData2 = imageData2
-                
-                modelContext.insert(parsedData)
-                
-                //modelContext.insert(newId) //go stavame vo contextot
-                
-                do {
-                    try modelContext.save()
-                    print("uspesno zacuvuvanje vo databaza")
-                } catch {
-                    print("neuspesno zacuvuvanje")
+        //za dvete strani
+        processOCR(image: slika) { predenText in
+            processOCR(image: slika2) { zadenText in
+                DispatchQueue.main.async {
+                    let kombiniranText = predenText + "\n" + zadenText
+                    let parsedData = parseIDCardText(kombiniranText)
+                    
+                    parsedData.imageData = imageData
+                    parsedData.imageData2 = imageData2
+                    
+                    modelContext.insert(parsedData)
+                    
+                    //modelContext.insert(newId) //go stavame vo contextot
+                    
+                    do {
+                        try modelContext.save()
+                        print("uspesno zacuvuvanje vo databaza")
+                    } catch {
+                        print("neuspesno zacuvuvanje")
+                    }
                 }
-            }
-            
-            
-            struct ContentViewPreview: PreviewProvider {
-                static var previews: some View {
-                    ContentView()
+                
+                
+                struct ContentViewPreview: PreviewProvider {
+                    static var previews: some View {
+                        ContentView()
+                    }
                 }
             }
         }

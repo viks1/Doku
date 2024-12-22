@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,6 +28,10 @@
 		41850DB32C6EEFA200E35051 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		41B89FA92D072E13007B2289 /* EditSlikaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSlikaView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		4178046F2D18A9F400EA8C58 /* MLModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MLModels; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		41850DA62C6EEFA100E35051 /* Frameworks */ = {
@@ -63,6 +67,7 @@
 				41463C952D04DA0C0065BBE0 /* CameraView.swift */,
 				41850DAC2C6EEFA100E35051 /* DokuApp.swift */,
 				41850DAE2C6EEFA100E35051 /* ContentView.swift */,
+				4178046F2D18A9F400EA8C58 /* MLModels */,
 				412BCE0E2D07687D00949407 /* OCRProcessing.swift */,
 				41B89FA92D072E13007B2289 /* EditSlikaView.swift */,
 				41850DB02C6EEFA200E35051 /* Assets.xcassets */,
@@ -93,6 +98,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4178046F2D18A9F400EA8C58 /* MLModels */,
 			);
 			name = Doku;
 			productName = Doku;

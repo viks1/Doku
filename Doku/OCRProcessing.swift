@@ -118,18 +118,41 @@ func parseIDCardText(_ text: String) -> IDCardPhoto {
             if index+1 < lines.count {
                 dateOfBirth = dateFormatter.date(from: lines[index+1])
             }
+        } else if line.contains("PLACE OF BIRTH") {
+            if index+1 < lines.count {
+                placeOfBirth = lines[index+1].trimmingCharacters(in: .whitespaces).split(separator: "/").first.map(String.init)
+            }
+        } else if line.contains("PERMANENT RESIDENCE") {
+            if index+1 < lines.count {
+                permanentResidence = lines[index+1].trimmingCharacters(in: .whitespaces).split(separator: "/").first.map(String.init)
+            }
+        } else if line.contains("ADDRESS") {
+            if index+1 < lines.count {
+                address = lines[index+1].trimmingCharacters(in: .whitespaces)
+            }
+        } else if line.contains("AUTHORITY") {
+            if index+1 < lines.count {
+                authority = lines[index+1].trimmingCharacters(in: .whitespaces)
+            }
+        }// else if line.contains("ID CARD NUMBER"){
+           // if index+1 < lines.count {
+            //    idNumber = lines[index+1].split(separator: "M").first.map(Int.init)
+            //}
         }
-    }
-
     return IDCardPhoto(
         imageData: nil, // go vrakjame nazad objektot so potpolneti atributi
         name: name,
         surname: surname,
         nationality: nationality,
         sex: sex,
+        
         dateofbirth: dateOfBirth,
         dateOfIssue: dateOfIssue,
         dateOfExpiry: dateOfExpiry,
-        IDNumber: idNumber
+        
+        placeOfBirth: placeOfBirth,
+        permamentResidence: permanentResidence,
+        address: address,
+        authority: authority
     )
 }
