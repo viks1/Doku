@@ -19,6 +19,7 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
         picker.delegate = context.coordinator
         picker.sourceType = .camera
         picker.allowsEditing = true
+        picker.cameraDevice = .rear // da ne gi vrti site 3 kameri
         picker.cameraFlashMode = .off //.off ima podobri rezultati ama vo temna prostorija ne e dobro
         picker.showsCameraControls = false //ako e enabled gi imame site kontroli vrz kamerata (flash,zoom..)
         //za custom kontrola
@@ -86,10 +87,10 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
             instrukcii.textAlignment = .center
             instrukcii.textColor = .white
             instrukcii.font = UIFont.boldSystemFont(ofSize: 18)
-            instrukcii.text = "Slikaj ja prednata strana" // Initial text for front side
+            instrukcii.text = "Take a picture of the front side"
             overlay.addSubview(instrukcii)
             
-            self.instrukcii = instrukcii // Save reference to update later
+            self.instrukcii = instrukcii
             
             return overlay
         }
@@ -106,17 +107,17 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if var image = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage {
                 if !prednaSlikana {
-                    image = cropniSlika(img: image) ?? image
                     parent.slika = image
                     prednaSlikana = true
                     print("predna strana slikana")
-                    instrukcii?.text = "Slikajte ja zadnata strana"
+                    instrukcii?.text = "Take a picture of the back side"
                 } else {
                     parent.slika2 = image
                     print("zadna strana slikana")
                     if let slika1 = parent.slika {
                         parent.onsave(slika1, image)
                     }
+                    scheduleNotification()
                     parent.presentationMode.wrappedValue.dismiss()
                 }
             } else {
@@ -127,22 +128,26 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             parent.presentationMode.wrappedValue.dismiss() //manuelno gasenje na pickerot, nishto ne vrakja nazad do roditelot
         }
-        func cropniSlika(img: UIImage) -> UIImage? {
-            
-            let cropRect = CGRect(x: 0, y: img.size.height - 500, width: img.size.width/3, height: img.size.height/3).integral
-            
-            guard let cgImage = img.cgImage,
-                  let croppedCGImage = cgImage.cropping(to: cropRect) else {
-                return nil
-            }
-            
-            let croppedImage = UIImage(
-                cgImage: croppedCGImage,
-                scale: img.scale,
-                orientation: img.imageOrientation
-            )
-            
-            return croppedImage
+    
+    }
+    
+}
+func scheduleNotification() {
+    let content = UNMutableNotificationContent()
+    content.title = "ID card saved!"
+    content.body = "You can view your ID card in the main screen."
+    content.sound = .default
+    
+    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+    
+    let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+    
+    //ja prakja vo notification center
+    UNUserNotificationCenter.current().add(request) { error in
+        if let error = error {
+            print("error sending notification \(error.localizedDescription)")
+        } else {
+            print("notification sent!")
         }
     }
 }

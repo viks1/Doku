@@ -31,7 +31,7 @@ struct ContentView: View {
                             NavigationLink(destination: EditSlikaView(slika: photo)) { //pri klik se otvara edits
                                 Image(uiImage: image1)
                                     .resizable()
-                                    .frame(width: image1.size.width/4, height: image1.size.height/8)
+                                    .frame(width: 300, height: 300)
                                     .cornerRadius(10)
                                     .shadow(radius: 5)
                                     .rotationEffect(Angle(degrees: 90))
@@ -42,19 +42,31 @@ struct ContentView: View {
                 .onAppear {
                     counter = idCardPhotos.count
                 }
-            }
+                if counter==0 {
+                    Text("welcome to Doku, tap the camera button to take a picture of your ID :)").frame(width: 350).position(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/6)
+                }
+            }.frame(height: 300)
+                .navigationTitle(Text("Doku"))
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: { imaKamera = true }) {
+                            Label("Slikaj", systemImage: "camera")
+                        }.sensoryFeedback(.success, trigger: imaKamera)
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing){
+                        if counter > 0 {
+                            Text("\(counter)")
+                        }
 
+                    }
+                }
+                .sheet(isPresented: $imaKamera) {
+                    CameraView(slika: $slika, slika2: $slika2) { slika, slika2 in
+                        savePhotoToSwiftData(slika: slika, slika2: slika2)
+                        //gi zema od cameraView dvata objekta
+                    }
+                }
         }
-        //Text("Broj na ID's : \(counter)")
-        Button(action: { imaKamera = true }) {
-                   Label("Slikaj", systemImage: "camera")
-               }
-        .sheet(isPresented: $imaKamera) {
-            CameraView(slika: $slika, slika2: $slika2){
-                slika, slika2 in savePhotoToSwiftData(slika: slika, slika2: slika2) //gi zema od cameraView dvata objekta
-            }
-        }
-        
     }
     
     func savePhotoToSwiftData(slika: UIImage, slika2: UIImage) { // se prakjaat tuka kade shto se pretvoraat vo jpeg
@@ -88,4 +100,9 @@ struct ContentView: View {
             }
         }
     }
+}
+
+
+#Preview {
+    ContentView()
 }

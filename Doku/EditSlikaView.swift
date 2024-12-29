@@ -56,11 +56,14 @@ struct EditSlikaView: View {
         NavigationView {
             VStack {
                 VStack {
-                    if let data = slika.imageData, let image = UIImage(data: data) {
-                        Image(uiImage: image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 150, height: 400)
+                    if editing {
+                        if let data = slika.imageData, let image = UIImage(data: data) {
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 400, height: 400)
+                                .transition(.slide)
+                        }
                     }
                     Form {
                         HStack {
@@ -168,11 +171,24 @@ struct EditSlikaView: View {
                         HStack {
                             VStack(alignment: .leading){
                                 Text("Address").font(.subheadline).foregroundColor(.gray)
-                                TextField("Address", text: $address)
-                                    .onAppear {
-                                        address = slika.address ?? "Error"
+                                ZStack{
+                                    Button(action: {
+                                        showMap = true // na tap da se otvara mapata, ama skrieno e vrz textbox
+                                    }) {
+                                        EmptyView()
                                     }
-                                    .disabled(editing)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .background(Color.clear)
+                                    .disabled(!editing)
+                                    TextField("Address", text: $address)
+                                        .onAppear {
+                                            address = slika.address ?? "Error"
+                                        }
+                                        .disabled(editing)
+                                }.sheet(isPresented: $showMap) {
+                                    MapView(adresa: address)
+                                }.sensoryFeedback(.success, trigger: showMap)
+                            
                             }
                             VStack(alignment: .leading){
                                 Text("Authority").font(.subheadline).foregroundColor(.gray)
@@ -183,26 +199,21 @@ struct EditSlikaView: View {
                                     .disabled(editing)
                             }
                         }
-                        Button(action: {showMap = true}){
-                            Text("mapaTest")
-                        }.sheet(isPresented: $showMap) {
-                            MapView()
-                        }
                     }
                     if !editing{
                         Section(){
                             Button("Delete", role: .destructive) {
                                 showAlert.toggle()
-                            }.buttonStyle(.borderedProminent).alert("izbirishi", isPresented: $showAlert){
+                            }.buttonStyle(.borderedProminent).alert("ID Deletion", isPresented: $showAlert){
                                 Button("Delete", role: .destructive){
                                     deleteSlika()
                                 }
                                 Button("Cancel", role: .cancel){
                                     showAlert.toggle()
-                                }
+                                }.sensoryFeedback(.success, trigger: showAlert)
                             } message: {
                                 Text("Are you sure you want to delete this ID?")
-                            }
+                            }.sensoryFeedback(.success, trigger: showAlert)
                         }
                     }
                 }
@@ -210,11 +221,11 @@ struct EditSlikaView: View {
         }.toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(editing ? "Edit" : "Save"){
-                        if editing{
+                        if !editing{
                             saveDetails()
                         }
                         editing.toggle()
-                    }
+                    }.sensoryFeedback(.success, trigger: editing)
                 }
             }
     }
@@ -235,12 +246,8 @@ struct EditSlikaView: View {
         slika.authority = authority
         slika.IDNumber = idNumber
         
-        do{
-            try? modelContext.save() //mora so try?
-            print("changes saved successfully")
-        }  catch {
-            print("saving changes failed")
-        }
+        try? modelContext.save() //mora so try?
+        print("changes saved successfully")
     }
     
 }
