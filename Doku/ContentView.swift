@@ -31,10 +31,14 @@ struct ContentView: View {
                             NavigationLink(destination: EditSlikaView(slika: photo)) { //pri klik se otvara edits
                                 Image(uiImage: image1)
                                     .resizable()
+                                    .scaledToFit()
                                     .frame(width: 300, height: 300)
                                     .cornerRadius(10)
                                     .shadow(radius: 5)
                                     .rotationEffect(Angle(degrees: 90))
+                                    .transition(.move(edge: .leading)) //od levo se stava nova
+                                    .offset(x: 0, y: 0)
+                                    .animation(.easeInOut(duration: 0.5), value: idCardPhotos.count)
                             }
                         }
                     }

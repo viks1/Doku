@@ -34,6 +34,8 @@ struct MapView: View {
             }
         }
     }
+    
+    //od tekst vo koordinati
     func geoAdresa() {
             let geocoder = CLGeocoder()
             geocoder.geocodeAddressString(adresa) { placemarks, error in
