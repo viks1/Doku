@@ -26,6 +26,9 @@ struct EditSlikaView: View {
     @State private var authority : String
     @State private var idNumber : Int = 0
     @State private var editing : Bool = true
+    @State private var showAlert : Bool = false
+    @State private var showMap : Bool = false
+
     
     init(slika: IDCardPhoto) { // FIX ZA BINDING vo contnentView-> mora init tuka
         self.slika = slika
@@ -49,68 +52,173 @@ struct EditSlikaView: View {
            return formatter
        }()
     
-    var body: some View {	
-        NavigationView{
-            VStack{
-                if let data = slika.imageData, let image = UIImage(data: data) {
-                    Image(uiImage: image).resizable().aspectRatio(contentMode: .fit)
-                }
-                Form{
-                    TextField("name", text: $name).onAppear {
-                        name = slika.name ?? "Default"
-                    }.disabled(editing)
-                    TextField("surname", text: $surname).onAppear {
-                        surname = slika.surname ?? "Default"
-                    }.disabled(editing)
-                    TextField("nationality", text: $nationality).onAppear {
-                        nationality = slika.nationality ?? "Default"
-                    }.disabled(editing)
-                    TextField("sex", text: $sex).onAppear {
-                        sex = slika.sex ?? "Default"
-                    }.disabled(editing)
-                    DatePicker("", selection: $dateOfBirth).onAppear {
-                        dateOfBirth = slika.dateOfBirth ?? Date.now
-                    }.disabled(editing)
-                    
-                    TextField("IDNumber", value: $idNumber, formatter: formatter).onAppear {
-                    idNumber = slika.IDNumber ?? 0
-                    }.disabled(editing)
-
-                    DatePicker("", selection: $dateOfIssue).onAppear {
-                        dateOfIssue = slika.dateOfIssue ?? Date.now
-                    }.disabled(editing)
-                    DatePicker("", selection: $dateOfExpiry).onAppear {
-                        dateOfExpiry = slika.dateOfExpiry ?? Date.now
-                    }.disabled(editing)
-                    TextField("placeOfBirth", text: $placeOfBirth).onAppear {
-                        placeOfBirth = slika.placeOfBirth ?? "Default"
-                    }.disabled(editing)
-                    TextField("permamentResidence", text: $permanentResidence).onAppear {
-                        permanentResidence = slika.permanentResidence ?? "Default"
-                    }.disabled(editing)
-                    TextField("address", text: $address).onAppear {
-                        address = slika.address ?? "Default"
-                    }.disabled(editing)
-                    TextField("authority", text: $authority).onAppear {
-                        authority = slika.authority ?? "Default"
-                    }.disabled(editing)
-
-                }
-                HStack{
-                    Button("Edit"){
-                        editing = !editing
+    var body: some View {
+        NavigationView {
+            VStack {
+                VStack {
+                    if let data = slika.imageData, let image = UIImage(data: data) {
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 150, height: 400)
                     }
-                    Button("Save"){
-                        saveDetails()
+                    Form {
+                        HStack {
+                            VStack(alignment: .leading){
+                                Text("Name").font(.subheadline).foregroundColor(.gray)
+                                TextField("Name", text: $name)
+                                    .onAppear {
+                                        name = slika.name ?? "Error"
+                                    }
+                                    .disabled(editing)
+                            }
+                            VStack(alignment: .leading){
+                                Text("Surname").font(.subheadline).foregroundColor(.gray)
+                                TextField("Surname", text: $surname)
+                                    .onAppear {
+                                        surname = slika.surname ?? "Error"
+                                    }
+                                    .disabled(editing)
+                            }
+                        }
+                        
+                        HStack {
+                            VStack(alignment: .leading){
+                                Text("Nationality").font(.subheadline).foregroundColor(.gray)
+                                TextField("Nationality", text: $nationality)
+                                    .onAppear {
+                                        nationality = slika.nationality ?? "Error"
+                                    }
+                                    .disabled(editing)
+                            }
+                            VStack(alignment: .leading){
+                                Text("Sex").font(.subheadline).foregroundColor(.gray)
+                                TextField("Sex", text: $sex)
+                                    .onAppear {
+                                        sex = slika.sex ?? "Error"
+                                    }
+                                    .disabled(editing)
+                            }
+                        }
+                        
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Date of Birth")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                                DatePicker("", selection: $dateOfBirth, displayedComponents: .date)
+                                    .labelsHidden()
+                                    .disabled(editing)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            
+                            VStack(alignment: .leading) {
+                                Text("ID Number")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                                TextField("IDNumber", value: $idNumber, formatter: formatter)
+                                    .onAppear {
+                                        idNumber = slika.IDNumber ?? 0
+                                    }
+                                    .disabled(editing)
+                            }
+                        }
+                        
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Date of Issue")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                                DatePicker("", selection: $dateOfIssue, displayedComponents: .date)
+                                    .labelsHidden()
+                                    .disabled(editing)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            
+                            VStack(alignment: .leading) {
+                                Text("Date of Expiry")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                                DatePicker("", selection: $dateOfExpiry, displayedComponents: .date)
+                                    .labelsHidden()
+                                    .disabled(editing)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                        
+                        HStack {
+                            VStack(alignment: .leading){
+                                Text("Place of Birth").font(.subheadline).foregroundColor(.gray)
+                                TextField("Place of Birth", text: $placeOfBirth)
+                                    .onAppear {
+                                        placeOfBirth = slika.placeOfBirth ?? "Error"
+                                    }
+                                    .disabled(editing)
+                            }
+                            VStack(alignment: .leading){
+                                Text("Permant Residence").font(.subheadline).foregroundColor(.gray)
+                                TextField("Permanent Residence", text: $permanentResidence)
+                                    .onAppear {
+                                        permanentResidence = slika.permanentResidence ?? "Error"
+                                    }
+                                    .disabled(editing)
+                            }
+                        }
+                        
+                        HStack {
+                            VStack(alignment: .leading){
+                                Text("Address").font(.subheadline).foregroundColor(.gray)
+                                TextField("Address", text: $address)
+                                    .onAppear {
+                                        address = slika.address ?? "Error"
+                                    }
+                                    .disabled(editing)
+                            }
+                            VStack(alignment: .leading){
+                                Text("Authority").font(.subheadline).foregroundColor(.gray)
+                                TextField("Authority", text: $authority)
+                                    .onAppear {
+                                        authority = slika.authority ?? "Error"
+                                    }
+                                    .disabled(editing)
+                            }
+                        }
+                        Button(action: {showMap = true}){
+                            Text("mapaTest")
+                        }.sheet(isPresented: $showMap) {
+                            MapView()
+                        }
                     }
-                    
-                    Button("Delete") {
-                        deleteSlika()
-                    }//.offset(x: -50, y: 300)
+                    if !editing{
+                        Section(){
+                            Button("Delete", role: .destructive) {
+                                showAlert.toggle()
+                            }.buttonStyle(.borderedProminent).alert("izbirishi", isPresented: $showAlert){
+                                Button("Delete", role: .destructive){
+                                    deleteSlika()
+                                }
+                                Button("Cancel", role: .cancel){
+                                    showAlert.toggle()
+                                }
+                            } message: {
+                                Text("Are you sure you want to delete this ID?")
+                            }
+                        }
+                    }
                 }
-            }}
+            }
+        }.toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(editing ? "Edit" : "Save"){
+                        if editing{
+                            saveDetails()
+                        }
+                        editing.toggle()
+                    }
+                }
+            }
     }
-    func deleteSlika() {					
+    func deleteSlika() {
         modelContext.delete(slika)
     }
     func saveDetails() {
@@ -127,7 +235,12 @@ struct EditSlikaView: View {
         slika.authority = authority
         slika.IDNumber = idNumber
         
-        try? modelContext.save() //mora so try?
+        do{
+            try? modelContext.save() //mora so try?
+            print("changes saved successfully")
+        }  catch {
+            print("saving changes failed")
+        }
     }
     
 }

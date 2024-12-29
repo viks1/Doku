@@ -23,7 +23,6 @@ struct ContentView: View {
     @Environment(\.dismiss) private var dismiss //za cancel button
     
     var body: some View {
-        Text("Doku")
         NavigationView {
             ScrollView(.horizontal, showsIndicators: false) { //da nema scrollbar
                 HStack {
@@ -32,7 +31,7 @@ struct ContentView: View {
                             NavigationLink(destination: EditSlikaView(slika: photo)) { //pri klik se otvara edits
                                 Image(uiImage: image1)
                                     .resizable()
-                                    .frame(width: 200, height: 300)
+                                    .frame(width: image1.size.width/4, height: image1.size.height/8)
                                     .cornerRadius(10)
                                     .shadow(radius: 5)
                                     .rotationEffect(Angle(degrees: 90))
@@ -44,21 +43,17 @@ struct ContentView: View {
                     counter = idCardPhotos.count
                 }
             }
+
         }
         //Text("Broj na ID's : \(counter)")
-        
         Button(action: { imaKamera = true }) {
-            Label("Slikaj", systemImage: "camera")
-        }
+                   Label("Slikaj", systemImage: "camera")
+               }
         .sheet(isPresented: $imaKamera) {
             CameraView(slika: $slika, slika2: $slika2){
                 slika, slika2 in savePhotoToSwiftData(slika: slika, slika2: slika2) //gi zema od cameraView dvata objekta
             }
-            //Button("Cancel") {
-            //  dismiss()
-            // }
         }
-        
         
     }
     
@@ -88,13 +83,6 @@ struct ContentView: View {
                         print("uspesno zacuvuvanje vo databaza")
                     } catch {
                         print("neuspesno zacuvuvanje")
-                    }
-                }
-                
-                
-                struct ContentViewPreview: PreviewProvider {
-                    static var previews: some View {
-                        ContentView()
                     }
                 }
             }

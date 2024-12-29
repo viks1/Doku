@@ -153,6 +153,7 @@ func parseIDCardText(_ text: String) -> IDCardPhoto {
         placeOfBirth: placeOfBirth,
         permamentResidence: permanentResidence,
         address: address,
-        authority: authority
+        authority: authority,
+        IDNumber: idNumber
     )
 }

@@ -19,12 +19,12 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
         picker.delegate = context.coordinator
         picker.sourceType = .camera
         picker.allowsEditing = true
-        picker.cameraFlashMode = .on
+        picker.cameraFlashMode = .off //.off ima podobri rezultati ama vo temna prostorija ne e dobro
         picker.showsCameraControls = false //ako e enabled gi imame site kontroli vrz kamerata (flash,zoom..)
         //za custom kontrola
         picker.cameraOverlayView = context.coordinator.customDisplay()
         context.coordinator.slikaj = picker
-        
+
         return picker
         //inicijalizacija na pickerot so shto go terame da ja koristi kamerata, i da mozhe da se editira slikata
     }
@@ -41,6 +41,7 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
         let parent: CameraView
         var slikaj: UIImagePickerController?
         var prednaSlikana: Bool = false
+        var instrukcii: UILabel?
         
         
         init(_ parent: CameraView) {
@@ -54,11 +55,11 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
             
             //da go ima oblikot na licnata krata
             let maska = UIBezierPath(rect: UIScreen.main.bounds) //nadvoresniot del (crn)
-            let prozorche = UIBezierPath(roundedRect: CGRect(x: UIScreen.main.bounds.width * 0.1,
-            y: UIScreen.main.bounds.height * 0.3, width: UIScreen.main.bounds.width * 0.7, height: UIScreen.main.bounds.height * 0.2),cornerRadius: 10)
+            let prozorche = UIBezierPath(roundedRect: CGRect(x: UIScreen.main.bounds.width * 0.15,
+                                                             y: UIScreen.main.bounds.height * 0.3, width: UIScreen.main.bounds.width * 0.7, height: UIScreen.main.bounds.height * 0.2),cornerRadius: 10)
             maska.append(prozorche) //ova go pravi prodzirniot del vo sredina kade shto treba da bide licnata karta
             maska.usesEvenOddFillRule = true
-                        
+            
             let maskLayer = CAShapeLayer()
             maskLayer.path = maska.cgPath
             maskLayer.fillRule = .evenOdd
@@ -81,6 +82,15 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
             cancel.backgroundColor = UIColor.black
             overlay.addSubview(cancel)
             
+            let instrukcii = UILabel(frame: CGRect(x: 20, y: UIScreen.main.bounds.height * 0.15, width: UIScreen.main.bounds.width - 40,height: 50))
+            instrukcii.textAlignment = .center
+            instrukcii.textColor = .white
+            instrukcii.font = UIFont.boldSystemFont(ofSize: 18)
+            instrukcii.text = "Slikaj ja prednata strana" // Initial text for front side
+            overlay.addSubview(instrukcii)
+            
+            self.instrukcii = instrukcii // Save reference to update later
+            
             return overlay
         }
         
@@ -94,11 +104,13 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
             parent.presentationMode.wrappedValue.dismiss()
         }
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let image = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage {
+            if var image = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage {
                 if !prednaSlikana {
+                    image = cropniSlika(img: image) ?? image
                     parent.slika = image
                     prednaSlikana = true
                     print("predna strana slikana")
+                    instrukcii?.text = "Slikajte ja zadnata strana"
                 } else {
                     parent.slika2 = image
                     print("zadna strana slikana")
@@ -114,6 +126,23 @@ struct CameraView: UIViewControllerRepresentable { //ova ni ovozmozuva da slikam
         }
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             parent.presentationMode.wrappedValue.dismiss() //manuelno gasenje na pickerot, nishto ne vrakja nazad do roditelot
+        }
+        func cropniSlika(img: UIImage) -> UIImage? {
+            
+            let cropRect = CGRect(x: 0, y: img.size.height - 500, width: img.size.width/3, height: img.size.height/3).integral
+            
+            guard let cgImage = img.cgImage,
+                  let croppedCGImage = cgImage.cropping(to: cropRect) else {
+                return nil
+            }
+            
+            let croppedImage = UIImage(
+                cgImage: croppedCGImage,
+                scale: img.scale,
+                orientation: img.imageOrientation
+            )
+            
+            return croppedImage
         }
     }
 }

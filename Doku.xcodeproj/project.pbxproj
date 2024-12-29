@@ -3,22 +3,25 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		412BCE0F2D07687D00949407 /* OCRProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412BCE0E2D07687D00949407 /* OCRProcessing.swift */; };
+		41346B1E2D20D7B200B05A46 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41346B1D2D20D7B200B05A46 /* MapView.swift */; };
 		41463C942D04D97C0065BBE0 /* IDCardPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41463C932D04D9730065BBE0 /* IDCardPhoto.swift */; };
 		41463C962D04DA0C0065BBE0 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41463C952D04DA0C0065BBE0 /* CameraView.swift */; };
 		41850DAD2C6EEFA100E35051 /* DokuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41850DAC2C6EEFA100E35051 /* DokuApp.swift */; };
 		41850DAF2C6EEFA100E35051 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41850DAE2C6EEFA100E35051 /* ContentView.swift */; };
 		41850DB12C6EEFA200E35051 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41850DB02C6EEFA200E35051 /* Assets.xcassets */; };
 		41850DB42C6EEFA200E35051 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41850DB32C6EEFA200E35051 /* Preview Assets.xcassets */; };
+		41A2B1732D1D94DA00A97F7C /* InterfaceTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A2B1722D1D94DA00A97F7C /* InterfaceTestView.swift */; };
 		41B89FAA2D072E13007B2289 /* EditSlikaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B89FA92D072E13007B2289 /* EditSlikaView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		412BCE0E2D07687D00949407 /* OCRProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRProcessing.swift; sourceTree = "<group>"; };
+		41346B1D2D20D7B200B05A46 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		41463C932D04D9730065BBE0 /* IDCardPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDCardPhoto.swift; sourceTree = "<group>"; };
 		41463C952D04DA0C0065BBE0 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		41850DA92C6EEFA100E35051 /* Doku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doku.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,12 +29,9 @@
 		41850DAE2C6EEFA100E35051 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		41850DB02C6EEFA200E35051 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41850DB32C6EEFA200E35051 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		41A2B1722D1D94DA00A97F7C /* InterfaceTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceTestView.swift; sourceTree = "<group>"; };
 		41B89FA92D072E13007B2289 /* EditSlikaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSlikaView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		4178046F2D18A9F400EA8C58 /* MLModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = MLModels; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		41850DA62C6EEFA100E35051 /* Frameworks */ = {
@@ -67,7 +67,8 @@
 				41463C952D04DA0C0065BBE0 /* CameraView.swift */,
 				41850DAC2C6EEFA100E35051 /* DokuApp.swift */,
 				41850DAE2C6EEFA100E35051 /* ContentView.swift */,
-				4178046F2D18A9F400EA8C58 /* MLModels */,
+				41346B1D2D20D7B200B05A46 /* MapView.swift */,
+				41A2B1722D1D94DA00A97F7C /* InterfaceTestView.swift */,
 				412BCE0E2D07687D00949407 /* OCRProcessing.swift */,
 				41B89FA92D072E13007B2289 /* EditSlikaView.swift */,
 				41850DB02C6EEFA200E35051 /* Assets.xcassets */,
@@ -98,9 +99,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				4178046F2D18A9F400EA8C58 /* MLModels */,
 			);
 			name = Doku;
 			productName = Doku;
@@ -158,10 +156,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				41463C942D04D97C0065BBE0 /* IDCardPhoto.swift in Sources */,
+				41346B1E2D20D7B200B05A46 /* MapView.swift in Sources */,
 				41850DAF2C6EEFA100E35051 /* ContentView.swift in Sources */,
 				41B89FAA2D072E13007B2289 /* EditSlikaView.swift in Sources */,
 				41850DAD2C6EEFA100E35051 /* DokuApp.swift in Sources */,
 				41463C962D04DA0C0065BBE0 /* CameraView.swift in Sources */,
+				41A2B1732D1D94DA00A97F7C /* InterfaceTestView.swift in Sources */,
 				412BCE0F2D07687D00949407 /* OCRProcessing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
