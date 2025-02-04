@@ -19,7 +19,8 @@
 Permissions
 - 
 **Privacy - Camera Usage** -> со цел да може да ја фотографира личната карта. <br>
-**Privacy - Face ID Usage Description** -> за безбедно логирање во апликацијата.
+**Privacy - Face ID Usage Description** -> за безбедно логирање во апликацијата. <br>
+**UNUserNotificationCenter** -> го користи за испраќање на нотификација при успешно додавање на нова лична карта.
 
 Screenshots
 ------------
